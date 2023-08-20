@@ -46,10 +46,7 @@ public class Character : MonoBehaviour
             transform.position += Vector3.right / 1250;
             if (_state == CharacterState.Idle)
             {
-                transform.position += Vector3.down / 300;
-            } else if (_state == CharacterState.Fly)
-            {
-                _spriteRenderer.sprite = _sprites[CharacterState.Fly];
+                transform.position += Vector3.down / 250;
             }
         }
     }
@@ -66,7 +63,7 @@ public class Character : MonoBehaviour
     public void Fly()
     {
         _state = CharacterState.Fly;
-        transform.DOMove(transform.position + new Vector3(0.5f, 1.8f, 0), 0.5f)
+        transform.DOMove(transform.position + new Vector3(0.2f, 1.3f, 0), 0.2f)
             .OnComplete(() =>
             {
                 _state = CharacterState.Idle;
