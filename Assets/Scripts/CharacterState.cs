@@ -3,6 +3,7 @@ namespace DefaultNamespace
     public enum CharacterState
     {
         Idle,
-        Fly
+        Fly,
+        Dead
     }
 }
