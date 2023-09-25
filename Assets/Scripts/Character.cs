@@ -5,6 +5,7 @@ using System.Numerics;
 using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 public class Character : MonoBehaviour
@@ -16,10 +17,13 @@ public class Character : MonoBehaviour
     private Dictionary<CharacterState, Sprite> _sprites;
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private PolygonCollider2D _collider;
+    private Rigidbody2D _rigidBody;
+    public float flyForce;
+    public float moveSpeed = 1;
 
     private void Awake()
     {
+        _rigidBody = GetComponent<Rigidbody2D>();
         _sprites = new Dictionary<CharacterState, Sprite>()
         {
             { CharacterState.Idle, _batIdle},
@@ -29,26 +33,18 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        setSprite();
-        
-        if (_state == CharacterState.Dead)
-        {
-            
-        }
+        if (_rigidBody.velocity.y <= 0)
+            _state = CharacterState.Idle;
         else
-        {
-            transform.position += Vector3.right / 1250;
-            if (_state == CharacterState.Idle)
-            {
-                transform.position += Vector3.down / 250;
-            }
-        }
+            _state = CharacterState.Fly;
+
+            setSprite();
     }
 
     private void setSprite()
@@ -62,21 +58,11 @@ public class Character : MonoBehaviour
 
     public void Fly()
     {
-        _state = CharacterState.Fly;
-        transform.DOMove(transform.position + new Vector3(0.2f, 1.3f, 0), 0.2f)
-            .OnComplete(() =>
-            {
-                _state = CharacterState.Idle;
-            })
-            .OnKill(() =>
-            {
-                _state = CharacterState.Idle;
-            });
+        _rigidBody.velocity = new Vector2(0, flyForce);
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        transform.DOKill();
         Die();
     }
 
@@ -87,6 +73,9 @@ public class Character : MonoBehaviour
 
     private void Die()
     {
+        Debug.Log("Collided");
+        _rigidBody.velocity = Vector2.zero;
         _state = CharacterState.Dead;
+        GameManager.Instance.FinishGame();
     }
 }

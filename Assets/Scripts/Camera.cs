@@ -20,6 +20,6 @@ public class Camera : MonoBehaviour
     
     void Update()
     {
-        transform.position = new Vector3(character.transform.position.x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(character.transform.position.x + 1.5f, transform.position.y, transform.position.z);
     }
 }
