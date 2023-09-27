@@ -602,7 +602,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1059045016}
   - component: {fileID: 1059045015}
-  - component: {fileID: 1059045014}
   - component: {fileID: 1059045013}
   - component: {fileID: 1059045012}
   m_Layer: 0
@@ -665,7 +664,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059045011}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -678,22 +677,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
---- !u!114 &1059045014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059045011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26745e99a94ca44c2b57b48870a8b34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _batFly: {fileID: -4384899741344659513, guid: d2de0d5d65de6fe4c819bae5f4e4c117, type: 3}
-  _batIdle: {fileID: 7484338897127006386, guid: d2de0d5d65de6fe4c819bae5f4e4c117, type: 3}
-  _spriteRenderer: {fileID: 1059045015}
-  flyForce: 8
 --- !u!212 &1059045015
 SpriteRenderer:
   m_ObjectHideFlags: 0
