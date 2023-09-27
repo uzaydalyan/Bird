@@ -5,11 +5,15 @@ using System.Numerics;
 using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 public class Character : MonoBehaviour
 {
+    private float _initialHeight = 2.30f;
     private CharacterState _state = CharacterState.Idle;
     [SerializeField] private Sprite _batFly;
     [SerializeField] private Sprite _batIdle;
@@ -17,17 +21,23 @@ public class Character : MonoBehaviour
     private Dictionary<CharacterState, Sprite> _sprites;
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    private Rigidbody2D _rigidBody;
+    [SerializeField] private Rigidbody2D _rigidBody;
     [SerializeField] private float flyForce;
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
+        resetCharacter();
         _sprites = new Dictionary<CharacterState, Sprite>()
         {
             { CharacterState.Idle, _batIdle},
             { CharacterState.Fly , _batFly}
         };
+    }
+
+    public void resetCharacter()
+    {
+        _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        transform.position =  new Vector2(transform.position.x, _initialHeight);
     }
     
     // Update is called once per frame
@@ -69,7 +79,7 @@ public class Character : MonoBehaviour
 
     private void Die()
     {
-        _rigidBody.velocity = Vector2.zero;
+        _rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
         _state = CharacterState.Dead;
         GameManager.Instance.FinishGame();
     }

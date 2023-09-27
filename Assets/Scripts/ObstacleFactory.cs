@@ -23,6 +23,7 @@ namespace DefaultNamespace
         
         public void CreateObstacles()
         {
+            active = true;
             StartCoroutine(CreateObstacle());
         }
         

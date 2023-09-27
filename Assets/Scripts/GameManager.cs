@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _characterObject;
     public static GameManager Instance;
     private Character _character;
+    [SerializeField] private GameObject _menuButtons;
+    [SerializeField] private Button _playAgainButton;
+    [SerializeField] private Button _homeButton;
 
     private void Awake()
     {
@@ -20,6 +25,26 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ObstacleFactory.Instance.CreateObstacles();
+        _playAgainButton.onClick.AddListener(RestartGame);
+        _homeButton.onClick.AddListener(OpenHome);
+    }
+
+    private void OpenHome()
+    {
+        SceneManager.LoadScene("Scenes/MenuScene");
+    }
+
+    private void RestartGame()
+    {
+        _character.resetCharacter();
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("obstacle");
+        foreach (GameObject obstacle in obstacles)
+        {
+            Destroy(obstacle);
+        }
+        _menuButtons.SetActive(false);
+        ScoreManager.Instance.RestartScore();
         ObstacleFactory.Instance.CreateObstacles();
     }
 
@@ -40,5 +65,6 @@ public class GameManager : MonoBehaviour
         {
             obstacle.GetComponent<Obstacle>().GameOver();
         }
+        _menuButtons.SetActive(true);
     }
 }
