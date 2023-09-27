@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 5036987}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5036980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.43, y: 4.57, z: 0}
+  m_LocalPosition: {x: -1.43, y: 2.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -225,8 +225,7 @@ MonoBehaviour:
   _batFly: {fileID: -4384899741344659513, guid: d2de0d5d65de6fe4c819bae5f4e4c117, type: 3}
   _batIdle: {fileID: 7484338897127006386, guid: d2de0d5d65de6fe4c819bae5f4e4c117, type: 3}
   _spriteRenderer: {fileID: 5036981}
-  flyForce: 10
-  moveSpeed: 5
+  flyForce: 8
 --- !u!50 &5036986
 Rigidbody2D:
   serializedVersion: 4
@@ -242,7 +241,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

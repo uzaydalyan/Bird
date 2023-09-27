@@ -18,8 +18,7 @@ public class Character : MonoBehaviour
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidBody;
-    public float flyForce;
-    public float moveSpeed = 1;
+    [SerializeField] private float flyForce;
 
     private void Awake()
     {
@@ -30,21 +29,18 @@ public class Character : MonoBehaviour
             { CharacterState.Fly , _batFly}
         };
     }
-
-    void Start()
-    {
-
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
-        if (_rigidBody.velocity.y <= 0)
+        if (_rigidBody.velocity.y <= 0 && _state != CharacterState.Dead)
             _state = CharacterState.Idle;
         else
             _state = CharacterState.Fly;
 
-            setSprite();
+        setSprite();
+        if (_state == CharacterState.Dead)
+            _rigidBody.velocity = Vector2.zero;
     }
 
     private void setSprite()
@@ -73,7 +69,6 @@ public class Character : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Collided");
         _rigidBody.velocity = Vector2.zero;
         _state = CharacterState.Dead;
         GameManager.Instance.FinishGame();
