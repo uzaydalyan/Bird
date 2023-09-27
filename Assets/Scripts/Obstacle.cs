@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D _collider;
     [SerializeField] private Rigidbody2D _rigidbody;
-    private Boolean passed = false;
+    private Boolean passed;
 
     [SerializeField] private Vector2 _characterPosition;
     

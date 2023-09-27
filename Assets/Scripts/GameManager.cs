@@ -37,14 +37,10 @@ public class GameManager : MonoBehaviour
 
     private void RestartGame()
     {
-        _character.resetCharacter();
-        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("obstacle");
-        foreach (GameObject obstacle in obstacles)
-        {
-            Destroy(obstacle);
-        }
+        ObstacleFactory.Instance.ResetFactory();
         _menuButtons.SetActive(false);
         ScoreManager.Instance.RestartScore();
+        _character.resetCharacter();
         ObstacleFactory.Instance.CreateObstacles();
     }
 
