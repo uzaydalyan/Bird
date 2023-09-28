@@ -11,8 +11,6 @@ namespace DefaultNamespace
         [SerializeField] private float[] _yPositions;
 
         [SerializeField] private GameObject _obstaclePrefab;
-        [SerializeField] private float spawnTime;		// The amount of time between each spawn.
-        [SerializeField] private float spawnDelay;		// The amount of time before spawning starts.
         public static ObstacleFactory Instance;
         private IEnumerator _createRoutine;
 

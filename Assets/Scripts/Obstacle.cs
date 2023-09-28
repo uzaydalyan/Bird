@@ -26,7 +26,7 @@ public class Obstacle : MonoBehaviour
             ScoreManager.Instance.IncreaseScore(1);
             passed = true;
         }
-        if (transform.position.x < -3f)
+        if (transform.position.x < -10f)
         {
             Destroy(gameObject);
         }
