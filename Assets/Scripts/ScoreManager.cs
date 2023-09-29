@@ -25,9 +25,51 @@ public class ScoreManager : MonoBehaviour
         _scoreText.text = _score.ToString();
     }
 
+    public void GameOver()
+    {
+        HighScoreActions();
+    }
+
+    private void HighScoreActions()
+    {
+        int[] currentHighScores = GetHighScores();
+        int tmp;
+        int newScore = _score;
+
+        for (int i = 0; i < currentHighScores.Length; i++)
+        {
+            if (newScore > currentHighScores[i])
+            {
+                tmp = currentHighScores[i];
+                currentHighScores[i] = newScore;
+                newScore = tmp;
+            }
+            
+            PlayerPrefs.SetInt($"HighScore{i}", currentHighScores[i]);
+        }
+
+        if (_score > currentHighScores[1])
+        {
+            _scoreText.text = $"HIGH SCORE!\n{_score}";
+        }
+    }
+
     public void RestartScore()
     {
         _score = 0;
         UpdateScoreText();
     }
+
+    public int[] GetHighScores()
+    {
+        int[] highScores = new int[10];
+        
+        for (int i = 0; i <= 9; i++)
+        {
+            highScores[i] = PlayerPrefs.GetInt($"HighScore{i}");
+        }
+
+        return highScores;
+    }
+
 }

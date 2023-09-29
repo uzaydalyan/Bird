@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     public void FinishGame()
     {
+        ScoreManager.Instance.GameOver();
         ObstacleFactory.Instance.StopCreatingObstacles();
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("obstacle");
         foreach (GameObject obstacle in obstacles)
