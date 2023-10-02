@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -32,7 +30,7 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    public void OnGameOver()
     {
         _rigidbody.velocity = new Vector2(0, 0);
     }

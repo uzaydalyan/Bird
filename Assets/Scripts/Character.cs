@@ -5,11 +5,7 @@ using System.Numerics;
 using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 public class Character : MonoBehaviour
 {
@@ -32,6 +28,11 @@ public class Character : MonoBehaviour
             { CharacterState.Idle, _batIdle},
             { CharacterState.Fly , _batFly}
         };
+    }
+
+    public void OnGameRestart()
+    {
+        resetCharacter();
     }
 
     public void resetCharacter()

@@ -35,18 +35,19 @@ namespace DefaultNamespace
             }
         }
 
-        public void StopCreatingObstacles()
+        public void OnGameOver()
         {
             StopCoroutine(_createRoutine);
         }
 
-        public void ResetFactory()
+        public void OnGameRestart()
         {
             GameObject[] obstacles = GameObject.FindGameObjectsWithTag("obstacle");
             foreach (GameObject obstacle in obstacles)
             {
                 Destroy(obstacle);
             }
+            CreateObstacles();
         }
     }
 }

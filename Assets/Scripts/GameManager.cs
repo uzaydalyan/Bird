@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,11 +34,10 @@ public class GameManager : MonoBehaviour
 
     private void RestartGame()
     {
-        ObstacleFactory.Instance.ResetFactory();
+        ObstacleFactory.Instance.OnGameRestart();
+        ScoreManager.Instance.OnGameRestart();
+        _character.OnGameRestart();
         _menuButtons.SetActive(false);
-        ScoreManager.Instance.RestartScore();
-        _character.resetCharacter();
-        ObstacleFactory.Instance.CreateObstacles();
     }
 
     // Update is called once per frame
@@ -55,12 +51,12 @@ public class GameManager : MonoBehaviour
 
     public void FinishGame()
     {
-        ScoreManager.Instance.GameOver();
-        ObstacleFactory.Instance.StopCreatingObstacles();
+        ScoreManager.Instance.OnGameOver();
+        ObstacleFactory.Instance.OnGameOver();
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("obstacle");
         foreach (GameObject obstacle in obstacles)
         {
-            obstacle.GetComponent<Obstacle>().GameOver();
+            obstacle.GetComponent<Obstacle>().OnGameOver();
         }
         _menuButtons.SetActive(true);
     }

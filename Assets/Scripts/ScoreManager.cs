@@ -6,9 +6,8 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
     [SerializeField] private Text _scoreText;
-    private int _score = 0;
+    private int _score;
     
-
     private void Awake()
     {
         Instance = this;
@@ -25,7 +24,7 @@ public class ScoreManager : MonoBehaviour
         _scoreText.text = _score.ToString();
     }
 
-    public void GameOver()
+    public void OnGameOver()
     {
         HighScoreActions();
     }
@@ -54,7 +53,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void RestartScore()
+    public void OnGameRestart()
     {
         _score = 0;
         UpdateScoreText();
