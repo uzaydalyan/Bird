@@ -1,16 +1,13 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using DefaultNamespace;
 using DG.Tweening;
+using Managers;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 public class Character : MonoBehaviour
 {
     private float _initialHeight = 2.30f;
-    private CharacterState _state = CharacterState.Idle;
     [SerializeField] private Sprite _batFly;
     [SerializeField] private Sprite _batIdle;
 
@@ -19,6 +16,15 @@ public class Character : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Rigidbody2D _rigidBody;
     [SerializeField] private float flyForce;
+    
+    private CharacterState _state = CharacterState.Idle;
+    public CharacterState state{
+        get{return _state;}
+        set{
+            _state = value; 
+            setSprite();
+        }
+    }
 
     private void Awake()
     {
@@ -44,13 +50,15 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_rigidBody.velocity.y <= 0 && _state != CharacterState.Dead)
-            _state = CharacterState.Idle;
-        else
-            _state = CharacterState.Fly;
-
-        setSprite();
-        if (_state == CharacterState.Dead)
+        if (state == CharacterState.Fly)
+        {
+            if (_rigidBody.velocity.y <= 0)
+                state = CharacterState.Idle;
+            else
+                state = CharacterState.Fly;
+        }
+        
+        if (state == CharacterState.Dead)
             _rigidBody.velocity = Vector2.zero;
     }
 
@@ -65,17 +73,13 @@ public class Character : MonoBehaviour
 
     public void Fly()
     {
+        _state = CharacterState.Fly;
         _rigidBody.velocity = new Vector2(0, flyForce);
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         Die();
-    }
-
-    private void OnCollisionStay2D(Collision2D collisionInfo)
-    {
-        transform.DOKill();
     }
 
     private void Die()
