@@ -16,9 +16,9 @@ namespace Obstacles
             }
             if (transform.position.x < -10f)
             {
-                Destroy(gameObject);
+                passed = false;
+                ObstacleFactory.Instance.PushPipeToPool(gameObject);
             }
         }
-    
     }
 }

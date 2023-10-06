@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using UnityEngine;
 
@@ -27,6 +28,11 @@ namespace Obstacles
         public void IncreaseScore(int point)
         {
             ScoreManager.Instance.IncreaseScore(point);
+        }
+
+        private void OnEnable()
+        {
+            rigidbody.velocity = new Vector2(-2f, 0);
         }
     }
 }
