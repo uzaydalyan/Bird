@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.Helpers;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Obstacles
@@ -12,13 +12,14 @@ namespace Obstacles
         [SerializeField] private GameObject _pipePrefab;
         public static ObstacleFactory Instance;
         private IEnumerator _createRoutine;
-        
-        private Stack<GameObject> _pipePool = new();
+
+        private Pool _pipePool;
 
         private void Awake()
         {
             Instance = this;
             _createRoutine = CreateObstacle();
+            _pipePool = new Pool(_pipePrefab);
         }
         
         public void CreateObstacles()
@@ -37,22 +38,17 @@ namespace Obstacles
         private void CreatePipe()
         {
             Vector2 position = new Vector2(transform.position.x, _yPositions[Random.Range(0, _yPositions.Length)]);
-            
-            if (_pipePool.Count > 0)
-            {
-                GameObject pipe = _pipePool.Pop();
-                pipe.transform.position = position;
-                pipe.SetActive(true);
-            } else
-            {
-                Instantiate(_pipePrefab, position, Quaternion.identity, transform);
-            }
+            _pipePool.GetFromPool(position, transform);
         }
 
-        public void PushPipeToPool(GameObject pipe)
+        public void LeaveToPool(GameObject obj, ObstacleType type)
         {
-            pipe.SetActive(false);
-            _pipePool.Push(pipe);
+            switch (type)
+            {
+                case ObstacleType.Pipe:
+                    _pipePool.LeaveToPool(obj);
+                    break;
+            }
         }
 
         public void OnGameOver()

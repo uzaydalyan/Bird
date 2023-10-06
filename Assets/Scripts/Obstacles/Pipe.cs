@@ -6,6 +6,12 @@ namespace Obstacles
     public class Pipe : Obstacle
     {
         private Boolean passed;
+
+        public override void SetType()
+        {
+            type = ObstacleType.Pipe;
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -17,7 +23,7 @@ namespace Obstacles
             if (transform.position.x < -10f)
             {
                 passed = false;
-                ObstacleFactory.Instance.PushPipeToPool(gameObject);
+                RemoveSelf();
             }
         }
     }
