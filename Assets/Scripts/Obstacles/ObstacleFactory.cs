@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
+namespace Obstacles
 {
     public class ObstacleFactory : MonoBehaviour
     {
         [SerializeField] private float[] _yPositions;
-
-        [SerializeField] private GameObject _obstaclePrefab;
+        [SerializeField] private GameObject _pipePrefab;
         public static ObstacleFactory Instance;
         private IEnumerator _createRoutine;
 
@@ -29,10 +27,15 @@ namespace DefaultNamespace
         public IEnumerator CreateObstacle()
         {
             while(true){
-                Vector2 position = new Vector2(transform.position.x, _yPositions[Random.Range(0, _yPositions.Length)]);
-                Instantiate(_obstaclePrefab, position, Quaternion.identity, transform);
+                CreatePipe();
                 yield return new WaitForSeconds(1.2f);
             }
+        }
+
+        private void CreatePipe()
+        {
+            Vector2 position = new Vector2(transform.position.x, _yPositions[Random.Range(0, _yPositions.Length)]);
+            Instantiate(_pipePrefab, position, Quaternion.identity, transform);
         }
 
         public void OnGameOver()

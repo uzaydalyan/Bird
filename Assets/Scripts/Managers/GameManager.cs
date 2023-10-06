@@ -12,7 +12,7 @@ namespace Managers
 
         [SerializeField] private GameObject _characterObject;
         public static GameManager Instance;
-        private Character _character;
+        private Character.Character _character;
         [SerializeField] private GameObject _menuButtons;
         [SerializeField] private Button _playAgainButton;
         [SerializeField] private Button _homeButton;
@@ -22,7 +22,7 @@ namespace Managers
         private void Awake()
         {
             Instance = this;
-            _character = _characterObject.GetComponent<Character>();
+            _character = _characterObject.GetComponent<Character.Character>();
             characterPositionX = _characterObject.transform.position.x;
         }
 

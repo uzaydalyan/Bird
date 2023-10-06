@@ -1,4 +1,4 @@
-namespace DefaultNamespace
+namespace Character
 {
     public enum CharacterState
     {
