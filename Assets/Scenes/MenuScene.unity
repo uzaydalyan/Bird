@@ -494,9 +494,7 @@ MonoBehaviour:
   - 1.5
   - 1
   - 0.5
-  _obstaclePrefab: {fileID: 5149815070329434480, guid: 39bb843b58c484277b6591b569309cb2, type: 3}
-  spawnTime: 1
-  spawnDelay: 2
+  _pipePrefab: {fileID: 5149815070329434480, guid: 39bb843b58c484277b6591b569309cb2, type: 3}
 --- !u!4 &799354284
 Transform:
   m_ObjectHideFlags: 0

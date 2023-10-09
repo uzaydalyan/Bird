@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using DefaultNamespace.Helpers;
+using Helpers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Obstacles
 {
-    public class ObstacleFactory : MonoBehaviour
+    public class ObstacleFactory : GameElement
     {
         [SerializeField] private float[] _yPositions;
         [SerializeField] private GameObject _pipePrefab;
@@ -51,18 +52,15 @@ namespace Obstacles
             }
         }
 
-        public void OnGameOver()
+        protected override void OnStart(){}
+
+        protected override void OnGameOver()
         {
             StopCoroutine(_createRoutine);
         }
 
-        public void OnGameRestart()
+        protected override void OnGameRestart()
         {
-            GameObject[] obstacles = GameObject.FindGameObjectsWithTag("obstacle");
-            foreach (GameObject obstacle in obstacles)
-            {
-                Destroy(obstacle);
-            }
             CreateObstacles();
         }
     }

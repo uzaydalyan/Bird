@@ -1,4 +1,6 @@
+using System;
 using DefaultNamespace;
+using DefaultNamespace.Helpers;
 using Obstacles;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +18,8 @@ namespace Managers
         [SerializeField] private GameObject _menuButtons;
         [SerializeField] private Button _playAgainButton;
         [SerializeField] private Button _homeButton;
+
+        public static event Action<GameStateChange> GameStateChanged;
 
         public float characterPositionX;
 
@@ -41,9 +45,7 @@ namespace Managers
 
         private void RestartGame()
         {
-            ObstacleFactory.Instance.OnGameRestart();
-            ScoreManager.Instance.OnGameRestart();
-            _character.OnGameRestart();
+            GameStateChanged?.Invoke(GameStateChange.GameRestart);
             _menuButtons.SetActive(false);
         }
 
@@ -58,13 +60,7 @@ namespace Managers
 
         public void FinishGame()
         {
-            ScoreManager.Instance.OnGameOver();
-            ObstacleFactory.Instance.OnGameOver();
-            GameObject[] obstacles = GameObject.FindGameObjectsWithTag("obstacle");
-            foreach (GameObject obstacle in obstacles)
-            {
-                obstacle.GetComponent<Obstacle>().OnGameOver();
-            }
+            GameStateChanged?.Invoke(GameStateChange.GameOver);
             _menuButtons.SetActive(true);
         }
     }

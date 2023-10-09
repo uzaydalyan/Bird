@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using DefaultNamespace.Helpers;
+using Helpers;
 using Managers;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 namespace Character
 {
-    public class Character : MonoBehaviour
+    public class Character : GameElement
     {
         private float _initialHeight = 2.30f;
         [SerializeField] private Sprite _batFly;
@@ -36,7 +38,11 @@ namespace Character
             };
         }
 
-        public void OnGameRestart()
+        protected override void OnStart(){}
+
+        protected override void OnGameOver(){}
+
+        protected override void OnGameRestart()
         {
             resetCharacter();
         }

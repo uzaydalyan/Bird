@@ -7,6 +7,8 @@ namespace Obstacles
     {
         private Boolean passed;
 
+        protected override void ObstacleOnStart(){}
+
         public override void SetType()
         {
             type = ObstacleType.Pipe;

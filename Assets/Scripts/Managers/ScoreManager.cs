@@ -1,9 +1,12 @@
+using System;
+using DefaultNamespace.Helpers;
+using Helpers;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Managers
 {
-    public class ScoreManager : MonoBehaviour
+    public class ScoreManager : GameElement
     {
         public static ScoreManager Instance;
         [SerializeField] private Text _scoreText;
@@ -25,7 +28,9 @@ namespace Managers
             _scoreText.text = _score.ToString();
         }
 
-        public void OnGameOver()
+        protected override void OnStart(){}
+
+        protected override void OnGameOver()
         {
             HighScoreActions();
         }
@@ -54,7 +59,7 @@ namespace Managers
             }
         }
 
-        public void OnGameRestart()
+        protected override void OnGameRestart()
         {
             _score = 0;
             UpdateScoreText();
@@ -72,5 +77,9 @@ namespace Managers
             return highScores;
         }
 
+        private void OnDestroy()
+        {
+            Debug.Log("SCOREMANAGER DESTROYED");
+        }
     }
 }

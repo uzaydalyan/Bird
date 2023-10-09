@@ -1,11 +1,14 @@
 using System;
+using DefaultNamespace.Helpers;
+using Helpers;
 using Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Obstacles
 {
-    public abstract class Obstacle : MonoBehaviour
+    public abstract class Obstacle : GameElement
     {
         public Rigidbody2D rigidbody;
         public float characterPositionX;
@@ -18,16 +21,24 @@ namespace Obstacles
             SetType();
         }
 
-        private void Start()
+        protected override void OnStart()
         {
             rigidbody.velocity = new Vector2(-2f, 0);
+            ObstacleOnStart();
         }
+
+        protected abstract void ObstacleOnStart();
 
         public abstract void SetType();
 
-        public void OnGameOver()
+        protected override void OnGameOver()
         {
             rigidbody.velocity = new Vector2(0, 0);
+        }
+
+        protected override void OnGameRestart()
+        {
+            RemoveSelf();
         }
 
         public void IncreaseScore(int point)
