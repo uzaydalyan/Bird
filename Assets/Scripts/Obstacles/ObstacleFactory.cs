@@ -1,17 +1,15 @@
-using System;
 using System.Collections;
 using DefaultNamespace.Helpers;
 using Helpers;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Obstacles
 {
     public class ObstacleFactory : GameElement
     {
+        public static ObstacleFactory Instance;
         [SerializeField] private float[] _yPositions;
         [SerializeField] private GameObject _pipePrefab;
-        public static ObstacleFactory Instance;
         private IEnumerator _createRoutine;
 
         private Pool _pipePool;
@@ -22,7 +20,7 @@ namespace Obstacles
             _createRoutine = CreateObstacle();
             _pipePool = new Pool(_pipePrefab);
         }
-        
+
         public void CreateObstacles()
         {
             StartCoroutine(_createRoutine);
@@ -30,7 +28,8 @@ namespace Obstacles
 
         public IEnumerator CreateObstacle()
         {
-            while(true){
+            while (true)
+            {
                 CreatePipe();
                 yield return new WaitForSeconds(1.2f);
             }
@@ -38,7 +37,7 @@ namespace Obstacles
 
         private void CreatePipe()
         {
-            Vector2 position = new Vector2(transform.position.x, _yPositions[Random.Range(0, _yPositions.Length)]);
+            var position = new Vector2(transform.position.x, _yPositions[Random.Range(0, _yPositions.Length)]);
             _pipePool.GetFromPool(position, transform);
         }
 
@@ -52,7 +51,9 @@ namespace Obstacles
             }
         }
 
-        protected override void OnStart(){}
+        protected override void OnStart()
+        {
+        }
 
         protected override void OnGameOver()
         {

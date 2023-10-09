@@ -1,5 +1,3 @@
-using System;
-using DefaultNamespace.Helpers;
 using Helpers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +9,7 @@ namespace Managers
         public static ScoreManager Instance;
         [SerializeField] private Text _scoreText;
         private int _score;
-    
+
         private void Awake()
         {
             Instance = this;
@@ -28,7 +26,9 @@ namespace Managers
             _scoreText.text = _score.ToString();
         }
 
-        protected override void OnStart(){}
+        protected override void OnStart()
+        {
+        }
 
         protected override void OnGameOver()
         {
@@ -37,11 +37,11 @@ namespace Managers
 
         private void HighScoreActions()
         {
-            int[] currentHighScores = GetHighScores();
+            var currentHighScores = GetHighScores();
             int tmp;
-            int newScore = _score;
+            var newScore = _score;
 
-            for (int i = 0; i < currentHighScores.Length; i++)
+            for (var i = 0; i < currentHighScores.Length; i++)
             {
                 if (newScore > currentHighScores[i])
                 {
@@ -49,14 +49,11 @@ namespace Managers
                     currentHighScores[i] = newScore;
                     newScore = tmp;
                 }
-            
+
                 PlayerPrefs.SetInt($"HighScore{i}", currentHighScores[i]);
             }
 
-            if (_score > currentHighScores[1])
-            {
-                _scoreText.text = $"HIGH SCORE!\n{_score}";
-            }
+            if (_score > currentHighScores[1]) _scoreText.text = $"HIGH SCORE!\n{_score}";
         }
 
         protected override void OnGameRestart()
@@ -67,19 +64,11 @@ namespace Managers
 
         public int[] GetHighScores()
         {
-            int[] highScores = new int[10];
-        
-            for (int i = 0; i <= 9; i++)
-            {
-                highScores[i] = PlayerPrefs.GetInt($"HighScore{i}");
-            }
+            var highScores = new int[10];
+
+            for (var i = 0; i <= 9; i++) highScores[i] = PlayerPrefs.GetInt($"HighScore{i}");
 
             return highScores;
-        }
-
-        private void OnDestroy()
-        {
-            Debug.Log("SCOREMANAGER DESTROYED");
         }
     }
 }

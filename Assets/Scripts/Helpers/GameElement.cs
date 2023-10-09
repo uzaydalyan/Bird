@@ -1,4 +1,3 @@
-using System;
 using DefaultNamespace.Helpers;
 using Managers;
 using UnityEngine;
@@ -13,10 +12,14 @@ namespace Helpers
             OnStart();
         }
 
+        private void OnDestroy()
+        {
+            GameManager.GameStateChanged -= OnGameStateChange;
+        }
+
 
         public void OnGameStateChange(GameStateChange changeEvent)
         {
-            Debug.Log("Change event callback");
             switch (changeEvent)
             {
                 case GameStateChange.GameRestart:
@@ -26,11 +29,6 @@ namespace Helpers
                     OnGameOver();
                     break;
             }
-        }
-
-        private void OnDestroy()
-        {
-            GameManager.GameStateChanged -= OnGameStateChange;
         }
 
         protected abstract void OnStart();

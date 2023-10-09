@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-
     private GameObject character;
 
     private void Awake()
@@ -13,13 +9,13 @@ public class Camera : MonoBehaviour
         character = GameObject.Find("Character");
     }
 
-    void Start()
+    private void Start()
     {
-        
     }
-    
-    void Update()
+
+    private void Update()
     {
-        transform.position = new Vector3(character.transform.position.x + 1.5f, transform.position.y, transform.position.z);
+        transform.position =
+            new Vector3(character.transform.position.x + 1.5f, transform.position.y, transform.position.z);
     }
 }

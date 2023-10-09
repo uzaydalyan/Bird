@@ -1,10 +1,6 @@
-using System;
-using DefaultNamespace.Helpers;
 using Helpers;
 using Managers;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Obstacles
 {
@@ -19,6 +15,11 @@ namespace Obstacles
             rigidbody = GetComponent<Rigidbody2D>();
             characterPositionX = GameManager.Instance.characterPositionX;
             SetType();
+        }
+
+        private void OnEnable()
+        {
+            rigidbody.velocity = new Vector2(-2f, 0);
         }
 
         protected override void OnStart()
@@ -49,11 +50,6 @@ namespace Obstacles
         public void RemoveSelf()
         {
             ObstacleFactory.Instance.LeaveToPool(gameObject, type);
-        }
-
-        private void OnEnable()
-        {
-            rigidbody.velocity = new Vector2(-2f, 0);
         }
     }
 }

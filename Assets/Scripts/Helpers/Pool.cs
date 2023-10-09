@@ -5,27 +5,26 @@ namespace DefaultNamespace.Helpers
 {
     public class Pool : IPool
     {
-        private Stack<GameObject> _pool;
-        private GameObject _prefab;
+        private readonly Stack<GameObject> _pool;
+        private readonly GameObject _prefab;
 
         public Pool(GameObject prefab)
         {
             _prefab = prefab;
             _pool = new Stack<GameObject>();
         }
-            
+
         public GameObject GetFromPool(Vector2 position, Transform transform)
         {
             if (_pool.Count > 0)
             {
-                GameObject obj = _pool.Pop();
+                var obj = _pool.Pop();
                 obj.transform.position = position;
                 obj.SetActive(true);
                 return obj;
-            } else
-            {
-                return MonoBehaviour.Instantiate(_prefab, position, Quaternion.identity, transform);
             }
+
+            return Object.Instantiate(_prefab, position, Quaternion.identity, transform);
         }
 
         public void LeaveToPool(GameObject obj)
